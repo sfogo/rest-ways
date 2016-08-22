@@ -13,3 +13,4 @@ target/
 #  notes
 notes.txt
 .database
+.env
