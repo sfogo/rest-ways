@@ -1,7 +1,8 @@
 # Explore LOINC measurement and observation codes with Camel CXF
 ## Foreword
-* Just a few Camel REST endpoints to explore [LOINC](https://loinc.org) codes. This project does not provide the data but it can be downloaded from [here](https://loinc.org/downloads) (_as well as database setup scripts_). Project is based upon [mysql](https://www.mysql.com) and LOINC version **2.50**.
-* Routing was lifted from Camel CXF [sample](https://github.com/apache/camel/blob/master/examples/camel-example-cxf/src/main/java/org/apache/camel/example/cxf/jaxrs/CamelRouterBuilder.java).
+* Just a few Camel REST + XML endpoints to explore [LOINC](https://loinc.org) codes. This project does not provide the data but it can be downloaded from [here](https://loinc.org/downloads) (_as well as database setup scripts_). Project is based upon [mysql](https://www.mysql.com) and LOINC version **2.50**.
+* [Routing](src/main/java/com/vnet/camelcxf/Routes.java) was lifted from Camel CXF [Samples](https://github.com/apache/camel/blob/master/examples/camel-example-cxf/src/main/java/org/apache/camel/example/cxf/jaxrs/CamelRouterBuilder.java).
+
 ## Run
 * Export the following environment variables:
 ```

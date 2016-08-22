@@ -1,6 +1,6 @@
 # Explore LOINC measurement and observation codes with Camel REST
 ## Foreword
-Just a few Camel REST endpoints to explore [LOINC](https://loinc.org) codes. This project does not provide the data but it can be downloaded from [here](https://loinc.org/downloads) (_as well as database setup scripts_). Project is based upon [mysql](https://www.mysql.com) and LOINC version **2.50**.
+Just a few Camel REST + JSON endpoints to explore [LOINC](https://loinc.org) codes. This project does not provide the data but it can be downloaded from [here](https://loinc.org/downloads) (_as well as database setup scripts_). Project is based upon [mysql](https://www.mysql.com) and LOINC version **2.50**.
 ## Deploy
 * Export the following environment variables:
 ```
