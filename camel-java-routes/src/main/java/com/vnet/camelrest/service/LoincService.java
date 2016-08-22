@@ -5,10 +5,10 @@ import org.apache.camel.BeanInject;
 
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
-import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 public class LoincService {
 
@@ -53,14 +53,11 @@ public class LoincService {
      * @throws ItemException
      */
     private Collection<Loinc> query(String sql) throws ItemException {
-        final Map<String, Loinc> codes = new TreeMap<>();
         try {
             final List<Properties> items = dbService.query(sql);
-            for (Properties item : items) {
-                final Loinc code = transform(item);
-                codes.put(code.getLoincNum(), code);
-            }
-            return codes.values();
+            final Collection<Loinc> codes = new LinkedList<>();
+            codes.addAll(items.stream().map(LoincService::transform).collect(Collectors.toList()));
+            return codes;
         } catch (SQLException e) {
             throw new DBException(sql,e.getMessage());
         }

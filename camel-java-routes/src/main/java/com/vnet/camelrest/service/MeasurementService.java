@@ -3,17 +3,17 @@ package com.vnet.camelrest.service;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
-import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 import com.vnet.camelrest.model.Loinc;
 import com.vnet.camelrest.model.Measurement;
 import org.apache.camel.BeanInject;
 
 /**
- * A {@link Measurement} service which we rest enable from the {@link com.vnet.camelrest.Routes}.
+ * A {@link Measurement} service enabled from {@link com.vnet.camelrest.Routes}.
  */
 
 public class MeasurementService {
@@ -42,10 +42,16 @@ public class MeasurementService {
         }
     }
 
-    public int delete(String id) throws ItemException {
+    /**
+     * Delete measurement
+     * @param id identifier
+     * @throws ItemException
+     */
+    public void delete(String id) throws ItemException {
         final String sql = "delete from measurement where id='" + id + "'";
         try {
-            return dbService.update(sql);
+            if (dbService.update(sql) == 0)
+                throw new ItemNotFoundException(id);
         } catch (SQLException e) {
             throw new DBException(sql,e.getMessage());
         }
@@ -98,15 +104,12 @@ public class MeasurementService {
      * @return the list of all measurements
      */
     public Collection<Measurement> list(String last) throws ItemException {
-        final Map<String, Measurement> measurements = new TreeMap<>();
         final String sql = "select * from measurement order by captureTimestamp desc limit " + getLimit(last);
         try {
             final List<Properties> items = dbService.query(sql);
-            for (Properties item : items) {
-                final Measurement measurement = transform(item);
-                measurements.put(measurement.getId(), measurement);
-            }
-            return measurements.values();
+            final Collection<Measurement> measurements = new LinkedList<>();
+            measurements.addAll(items.stream().map(MeasurementService::transform).collect(Collectors.toList()));
+            return measurements;
         } catch (SQLException e) {
             throw new DBException(sql,e.getMessage());
         }
