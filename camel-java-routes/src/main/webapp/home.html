@@ -1,0 +1,33 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>LOINC codes</title>
+</head>
+
+<body>
+<h3><a href="https://loinc.org">LOINC</a> 2.50 with Apache Camel REST</h3>
+
+<h4>Codes</h4>
+<ul>
+    <li>GET <a href="/loinc/codes/10222-8">/loinc/codes/10222-8</a> Get code details</li>
+    <li>GET <a href="/loinc/codes?q=7979">/loinc/codes?q=7979</a> Get codes that contain a value</li>
+    <li>GET <a href="/loinc/codes?q=cannabinol&type=name">/loinc/codes?q=cannabinol&type=name</a> Get codes whose naming contains a value</li>
+</ul>
+
+<h4>Measurements</h4>
+<ul>
+    <li>GET <a href="/loinc/measurements">/loinc/measurements</a> Get measurements (last 10 by default)</li>
+    <li>GET <a href="/loinc/measurements?last=2">/loinc/measurements?last=2</a> Get last 2 measurements</li>
+    <li>POST measurement
+        <div style="font-family:Courier New, Courier, monospace; font-size:80%">curl -i -H "Accept: application/json" -H "Content-Type: application/json" -X POST -d '{"id":"abc-123-xyz", "patientId":"Albertine453", "deviceId":"device817", "code":"42492-9", "unit":"Presence", "value":1, "manual":false}' http://localhost:7171/loinc/measurements</div>
+    </li>
+    <li>GET <a href="/loinc/measurements/abc-123-xyz">/loinc/measurements/abc-123-xyz</a> Get measurement</li>
+    <li>DELETE measurement
+        <div style="font-family:Courier New, Courier, monospace; font-size:80%">curl -X DELETE http://localhost:7171/loinc/measurements/abc-123-xyz</div>
+    </li>
+</ul>
+
+</body>
+
+</html>
