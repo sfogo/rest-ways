@@ -17,8 +17,8 @@ export DEMO_DB_PASSWORD=<password>
 * If you installed the [parent](https://github.com/sfogo/rest-ways), directly run with `mvn exec:java` (otherwise use `mvn compile exec:java`).
 * Examples  
 Get Code:  
-`curl http://localhost:7272/app/loinc/codes/12345-5`
-Search Codes that contain `1234`
+`curl http://localhost:7272/app/loinc/codes/12345-5`  
+Search Codes that contain `1234`  
 `http://localhost:7272/app/loinc/codes?q=1234`
 
 ### Webapp Runner
