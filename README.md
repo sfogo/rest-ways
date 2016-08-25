@@ -16,5 +16,5 @@ export DEMO_DB_PASSWORD=<password>
 * `mvn clean install`  
 This will do default packaging of all modules. Some modules have specific profiles (see within each).
 
-## Install
+## Run
 * See specific instructions within each project.
