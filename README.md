@@ -4,7 +4,7 @@ Different ways to explore [LOINC](https://loinc.org) codes with REST endpoints. 
 
 * [Camel CXF REST + XML](camel-cxf)
 * [Camel Servlet REST + JSON](camel-java-routes)
-* [Jersey + JSON](Jersey) (Grizzly or [Webapp Runner](https://github.com/jsimone/webapp-runner) depending on POM profile)
+* [Jersey + JSON](jersey) (Grizzly or [Webapp Runner](https://github.com/jsimone/webapp-runner) depending on POM profile)
 
 ## Install
 * Once you have setup the database, export the following environment variables:
