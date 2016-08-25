@@ -22,7 +22,7 @@ Search Codes that contain `1234`
 `http://localhost:7272/app/loinc/codes?q=1234`
 
 ### Webapp Runner
-* `web.xml`(https://github.com/sfogo/rest-ways/blob/master/jersey/src/main/webapp/WEB-INF/web.xml) file is used to enable [resource](https://github.com/sfogo/rest-ways/blob/master/jersey/src/main/java/com/vnet/jersey/LoincResource.java) endpoints.
+* [web.xml](https://github.com/sfogo/rest-ways/blob/master/jersey/src/main/webapp/WEB-INF/web.xml) file is used to enable [resource](https://github.com/sfogo/rest-ways/blob/master/jersey/src/main/java/com/vnet/jersey/LoincResource.java) endpoints.
 * You need to package it with `webapp-runner` profile:  
 `mvn -Pwebapp-runner package`
 * Run  
