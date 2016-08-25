@@ -16,7 +16,7 @@
  */
 package com.vnet.camelcxf;
 
-import com.vnet.camelcxf.resources.Utils;
+import com.vnet.Utils;
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.properties.PropertiesComponent;
 import org.apache.camel.impl.DefaultCamelContext;

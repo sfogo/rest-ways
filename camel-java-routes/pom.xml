@@ -5,40 +5,51 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>loinc</artifactId>
-    <groupId>com.vnet.camelrest</groupId>
-    <name>Camel Servlet REST Tomcat</name>
-    <description>An example using Servlet REST with Apache Tomcat</description>
+    <artifactId>camel-routes</artifactId>
+    <parent>
+        <groupId>com.vnet.restways</groupId>
+        <artifactId>parent</artifactId>
+        <version>0.1-SNAPSHOT</version>
+        <relativePath>..</relativePath>
+    </parent>
     <packaging>war</packaging>
-    <version>0.1.0</version>
+    <name>Camel Servlet REST</name>
+
+    <properties>
+        <camel.version>2.17.0</camel.version>
+    </properties>
 
     <dependencies>
-
+        <dependency>
+            <groupId>com.vnet.restways</groupId>
+            <artifactId>restways-base</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <!-- camel -->
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-core</artifactId>
-            <version>2.17.0</version>
+            <version>${camel.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-spring</artifactId>
-            <version>2.17.0</version>
+            <version>${camel.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-servlet</artifactId>
-            <version>2.17.0</version>
+            <version>${camel.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-jackson</artifactId>
-            <version>2.17.0</version>
+            <version>${camel.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-metrics</artifactId>
-            <version>2.17.0</version>
+            <version>${camel.version}</version>
         </dependency>
 
         <!-- we need spring web -->
@@ -53,23 +64,6 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.34</version>
         </dependency>
-
-        <!-- logging -->
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.10</version>
-        </dependency>
-
-        <!--
-
-        -->
-
     </dependencies>
 
     <build>

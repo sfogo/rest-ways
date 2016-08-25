@@ -19,7 +19,6 @@ package com.vnet.camelcxf;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import com.vnet.camelcxf.resources.LoincServiceImpl;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
@@ -31,11 +30,11 @@ import org.apache.commons.logging.LogFactory;
 public class Routes extends RouteBuilder {
 
     private static final String REST_ENDPOINT_URI = "cxfrs://http://localhost:{{restEndpointPort}}/loinc"
-        + "?resourceClasses=com.vnet.camelcxf.resources.LoincServiceImpl";
+        + "?resourceClasses=com.vnet.camelcxf.LoincResource";
     
     public void configure() {
         errorHandler(noErrorHandler());
-        from(REST_ENDPOINT_URI).process(new MappingProcessor(new LoincServiceImpl()));
+        from(REST_ENDPOINT_URI).process(new MappingProcessor(new LoincResource()));
     }
     
     // Mapping the request to object's invocation

@@ -1,9 +1,10 @@
 package com.vnet.camelrest;
 
-import com.vnet.camelrest.model.Loinc;
-import com.vnet.camelrest.model.Measurement;
-import com.vnet.camelrest.service.ItemException;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.vnet.model.Loinc;
+import com.vnet.model.Measurement;
+import com.vnet.service.ServiceException;
+import org.apache.camel.BeanInject;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
@@ -11,19 +12,21 @@ import org.apache.camel.model.rest.RestBindingMode;
 
 public class Routes extends RouteBuilder {
 
+    @BeanInject
+    private Delegate delegate;
 
     class ItemExceptionProcessor implements Processor {
         public void process(Exchange exchange) throws Exception {
-            final ItemException e = exchange.getProperty(Exchange.EXCEPTION_CAUGHT,ItemException.class);
-            exchange.getIn().setBody(e.getJsonError());
-            exchange.getIn().setHeader(Exchange.HTTP_RESPONSE_CODE,e.getHttpResponseCode());
+            final ServiceException e = exchange.getProperty(Exchange.EXCEPTION_CAUGHT,ServiceException.class);
+            exchange.getIn().setBody(new ObjectMapper().writeValueAsString(e.asErrorDetails()));
+            exchange.getIn().setHeader(Exchange.HTTP_RESPONSE_CODE,e.getCode().getStatus());
         }
     }
 
     @Override
     public void configure() throws Exception {
-
-        onException(ItemException.class).handled(true).process(new ItemExceptionProcessor());
+        delegate.initServices();
+        onException(ServiceException.class).handled(true).process(new ItemExceptionProcessor());
 
         // configure we want to use servlet as the component for the rest DSL
         // and we enable json binding mode
@@ -53,7 +56,7 @@ public class Routes extends RouteBuilder {
             .to("bean:loincService?method=getCode(${header.code})")
 
             .get("/").description("Find LOINC Codes by type and value").outTypeList(Loinc.class)
-            .to("bean:loincService?method=find(${header.q},${header.type})");
+            .to("bean:loincService?method=getCodes(${header.q},${header.type})");
     }
 
 }

@@ -5,12 +5,15 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>App</artifactId>
-    <groupId>com.vnet.camelrest</groupId>
-    <name>Camel CXF</name>
-    <description>An example using Servlet REST with Apache Tomcat</description>
+    <artifactId>camel-cxf</artifactId>
+    <parent>
+        <groupId>com.vnet.restways</groupId>
+        <artifactId>parent</artifactId>
+        <version>0.1-SNAPSHOT</version>
+        <relativePath>..</relativePath>
+    </parent>
     <packaging>war</packaging>
-    <version>0.1.0</version>
+    <name>Camel CXF</name>
 
     <properties>
         <camel-version>2.17.0</camel-version>
@@ -18,7 +21,11 @@
     </properties>
 
     <dependencies>
-
+        <dependency>
+            <groupId>com.vnet.restways</groupId>
+            <artifactId>restways-base</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-core</artifactId>
@@ -34,11 +41,14 @@
             <artifactId>camel-cxf</artifactId>
             <version>${camel-version}</version>
         </dependency>
+
+        <!--
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-jackson</artifactId>
             <version>${camel-version}</version>
         </dependency>
+        -->
 
         <!-- CXF -->
         <dependency>
@@ -53,26 +63,19 @@
             <version>5.1.34</version>
         </dependency>
 
-        <!-- logging -->
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.10</version>
-        </dependency>
-
-        <!--
-
-        -->
-
     </dependencies>
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+
             <!-- mvn compile exec:java -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -88,24 +91,6 @@
                     </systemProperties>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-            <!--
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-            -->
         </plugins>
     </build>
 
