@@ -12,13 +12,13 @@
 `export DEMO_REST_PORT=7272`
 * If you installed the [parent](https://github.com/sfogo/rest-ways), directly run with `mvn exec:java` (otherwise use `mvn compile exec:java`).
 * Examples  
-Get Code:  
+  * Get Code:  
 `curl http://localhost:7272/app/loinc/codes/12345-5`  
-Search Codes that contain `1234`  
+  * Search Codes that contain `1234`  
 `http://localhost:7272/app/loinc/codes?q=1234`
 
 ### Webapp Runner
-* [web.xml](https://github.com/sfogo/rest-ways/blob/master/jersey/src/main/webapp/WEB-INF/web.xml) file is used to enable [resource](https://github.com/sfogo/rest-ways/blob/master/jersey/src/main/java/com/vnet/jersey/LoincResource.java) endpoints.
+* [web.xml](https://github.com/sfogo/rest-ways/blob/master/jersey/src/main/webapp/WEB-INF/web.xml) file is used to enable [resource](https://github.com/sfogo/rest-ways/blob/master/jersey/src/main/java/com/vnet/jersey/LoincResource.java) endpoints. See [Jersey Guide](https://jersey.java.net/documentation/latest/user-guide.html#deployment.servlet.3) for Deployment using web.xml descriptor.
 * You need to package it with `webapp-runner` profile:  
 `mvn -Pwebapp-runner package`
 * Run  
