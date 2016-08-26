@@ -31,14 +31,6 @@
     <!-- beans -->
     <bean id="loincService" class="com.vnet.service.LoincService"/>
     <bean id="measurementService" class="com.vnet.service.MeasurementService"/>
-    <bean id="delegate" class="com.vnet.camelrest.Delegate">
-        <!-- env: is a custom syntax as {{env:value}} -->
-        <!-- does not seem to be supported everywhere -->
-        <property name="driverClassname" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="env:DEMO_DB_URL"/>
-        <property name="username" value="env:DEMO_DB_USERNAME"/>
-        <property name="password" value="env:DEMO_DB_PASSWORD"/>
-    </bean>
 
     <camelContext id="loinc" xmlns="http://camel.apache.org/schema/spring">
         <routeBuilder ref="theseRoutes"/>

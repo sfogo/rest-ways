@@ -1,8 +1,11 @@
 package com.vnet.camelrest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.vnet.db.SqlService;
 import com.vnet.model.Loinc;
 import com.vnet.model.Measurement;
+import com.vnet.service.LoincService;
+import com.vnet.service.MeasurementService;
 import com.vnet.service.ServiceException;
 import org.apache.camel.BeanInject;
 import org.apache.camel.Exchange;
@@ -13,7 +16,18 @@ import org.apache.camel.model.rest.RestBindingMode;
 public class Routes extends RouteBuilder {
 
     @BeanInject
-    private Delegate delegate;
+    private LoincService loincService;
+
+    @BeanInject
+    private MeasurementService measurementService;
+
+    private void initServices() {
+        final SqlService sqlService = new SqlService();
+        loincService.setSqlService(sqlService);
+        measurementService.setLoincService(loincService);
+        measurementService.setSqlService(sqlService);
+    }
+
 
     class ItemExceptionProcessor implements Processor {
         public void process(Exchange exchange) throws Exception {
@@ -25,7 +39,7 @@ public class Routes extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        delegate.initServices();
+        initServices();
         onException(ServiceException.class).handled(true).process(new ItemExceptionProcessor());
 
         // configure we want to use servlet as the component for the rest DSL
