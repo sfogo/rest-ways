@@ -1,4 +1,4 @@
-# Explore LOINC measurement and observation codes with Camel CXF
+# Explore LOINC measurement and observation codes with Camel CXF + XML
 ## Foreword
 * [Routing](src/main/java/com/vnet/camelcxf/Routes.java) was lifted from Camel CXF [Samples](https://github.com/apache/camel/blob/master/examples/camel-example-cxf/src/main/java/org/apache/camel/example/cxf/jaxrs/CamelRouterBuilder.java).
 

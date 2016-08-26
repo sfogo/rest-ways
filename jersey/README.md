@@ -1,4 +1,4 @@
-# Explore LOINC measurement and observation codes
+# Explore LOINC measurement and observation codes with Jersey + JSON
 ## Run
 * See [parent](https://github.com/sfogo/rest-ways) project for [LOINC](https://loinc.org) database setup.
 * Export the following environment variables:
