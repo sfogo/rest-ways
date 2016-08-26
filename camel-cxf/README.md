@@ -4,12 +4,12 @@
 * [Routing](src/main/java/com/vnet/camelcxf/Routes.java) was lifted from Camel CXF [Samples](https://github.com/apache/camel/blob/master/examples/camel-example-cxf/src/main/java/org/apache/camel/example/cxf/jaxrs/CamelRouterBuilder.java).
 
 ## Run
-* Export the following environment variables:
+* Set the following environment variables:
   * `DEMO_DB_URL`
   * `DEMO_DB_USERNAME`
   * `DEMO_DB_PASSWORD`
-  * Optional `DEMO_REST_PORT` (defaults to 8080)
   * Optional `DEMO_DB_DRIVER_CLASSNAME` (defaults to MySQL with `com.mysql.jdbc.Driver`)
+  * Optional `DEMO_REST_PORT` (defaults to 8080)
 * If you installed the [parent](https://github.com/sfogo/rest-ways), directly run with `mvn exec:java` (otherwise run with `mvn compile exec:java`)
 * Examples with `DEMO_REST_PORT=7272`
   * `$ curl http://localhost:7272/loinc/codes/12345-5`  
