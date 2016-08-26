@@ -1,9 +1,9 @@
 # Explore LOINC measurement and observation codes with Camel CXF
 ## Foreword
-* See [parent](https://github.com/sfogo/rest-ways) project for [LOINC](https://loinc.org) database setup.
 * [Routing](src/main/java/com/vnet/camelcxf/Routes.java) was lifted from Camel CXF [Samples](https://github.com/apache/camel/blob/master/examples/camel-example-cxf/src/main/java/org/apache/camel/example/cxf/jaxrs/CamelRouterBuilder.java).
 
 ## Run
+* See [parent](https://github.com/sfogo/rest-ways) project for [LOINC](https://loinc.org) database setup.
 * Set the following environment variables:
   * `DEMO_DB_URL`
   * `DEMO_DB_USERNAME`

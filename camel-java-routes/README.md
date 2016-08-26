@@ -1,10 +1,6 @@
 # Explore LOINC measurement and observation codes with Camel REST
-
-## Foreword
-* See [parent](https://github.com/sfogo/rest-ways) project for [LOINC](https://loinc.org) database setup.
-* Just a few Camel REST + JSON endpoints to explore [LOINC](https://loinc.org) codes.
-
 ## Run
+* See [parent](https://github.com/sfogo/rest-ways) project for [LOINC](https://loinc.org) database setup.
 * Set the following environment variables:
   * `DEMO_DB_URL`
   * `DEMO_DB_USERNAME`
