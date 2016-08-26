@@ -1,9 +1,6 @@
 # Explore LOINC measurement and observation codes
-
-## Foreword
-* See [parent](https://github.com/sfogo/rest-ways) project for [LOINC](https://loinc.org) database setup.
-
 ## Run
+* See [parent](https://github.com/sfogo/rest-ways) project for [LOINC](https://loinc.org) database setup.
 * Export the following environment variables:
   * `DEMO_DB_URL`
   * `DEMO_DB_USERNAME`
