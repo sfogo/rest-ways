@@ -1,15 +1,14 @@
-# Explore LOINC measurement and observation codes with Camel REST
+# Explore LOINC measurement and observation codes
 
 ## Foreword
-Just a few Camel REST + JSON endpoints to explore [LOINC](https://loinc.org) codes. This project does not provide the data but it can be downloaded from [here](https://loinc.org/downloads) (_as well as database setup scripts_). Project is based on LOINC version **2.50**.
+* See [parent](https://github.com/sfogo/rest-ways) project for [LOINC](https://loinc.org) database setup.
 
 ## Run
 * Export the following environment variables:
-```
-export DEMO_DB_URL=jdbc:mysql://<Host>/<DatabaseName>
-export DEMO_DB_USERNAME=<username>
-export DEMO_DB_PASSWORD=<password>
-```
+  * `DEMO_DB_URL`
+  * `DEMO_DB_USERNAME`
+  * `DEMO_DB_PASSWORD`
+  * Optional `DEMO_DB_DRIVER_CLASSNAME` (defaults to MySQL with `com.mysql.jdbc.Driver`)
 
 ### Grizzly
 * Default port is `8080` but you can also set a different value with  
