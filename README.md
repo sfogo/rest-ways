@@ -5,6 +5,7 @@ Different ways to explore [LOINC](https://loinc.org) codes with REST endpoints. 
 * [Camel CXF REST + XML](camel-cxf)
 * [Camel Servlet REST + JSON](camel-java-routes)
 * [Jersey + JSON](jersey) (Grizzly or [Webapp Runner](https://github.com/jsimone/webapp-runner) depending on POM profile)
+* [Flask](flask) (Python3 and [Flask](http://flask.pocoo.org))
 
 ## Install
 * Once you have setup the database, you need to set the following environment variables:
@@ -16,4 +17,4 @@ Different ways to explore [LOINC](https://loinc.org) codes with REST endpoints. 
 This will do default packaging of all modules. Some modules have specific profiles (see within each).
 
 ## Run
-* See specific instructions within each project.
+* See specific instructions within each project, especially for Python3 / Flask.
