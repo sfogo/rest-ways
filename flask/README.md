@@ -19,16 +19,17 @@ $ which python3
 ### Install Flask
 * General install instructions are [here](http://flask.pocoo.org/docs/0.11/installation)
 * You can do a system wide install and not bother about [virtualenv](http://docs.python-guide.org/en/latest/dev/virtualenvs) at all. Here is what I did for virtual env:
-  * $ `sudo apt-get install python3-pip`
-  * $ `sudo pip3 install virtualenv`
-  * $ `cd flask` (directory that contains [app.py](app.py) file)
-  * $ `sudo virtualenv venv` : shell promt gets prefixed with `(venv)`
-  * $ `sudo pip3 install Flask`
+  * `sudo apt-get install python3-pip`
+  * `sudo pip3 install virtualenv`
+  * `cd flask` (directory that contains [app.py](app.py) file)
+  * `sudo virtualenv venv` : shell promt gets prefixed with `(venv)`
+  * `sudo pip3 install Flask`
 
 ### Database Client
-  * Application also needs either `MySQL` or `PostgreSQL` client. Like Flax, you can choose to install system wide or within `venv`. You can check whether you already them with [this](testing/test-mysql.sql) for MySQL or [this](testing/test-pg.py) for PostgresSQL.
+  * Application also needs either `MySQL` or `PostgreSQL` Python client. Like Flax, you can choose to install system wide or within `venv`. You can check whether you already them with [this](testing/test-mysql.sql) for MySQL or [this](testing/test-pg.py) for PostgresSQL.
   * PostgreSQL python client can be installed with  
-`sudo pip3 install psycopg2`  (First time it complained about not having `pg_config`, which I got with `sudo apt-get install libpq-dev`, then re-attempt `psycopg2` install).
+`sudo pip3 install psycopg2`  
+First time it complained about not having `pg_config`, which I got with `sudo apt-get install libpq-dev`, then re-attempt `psycopg2` install.
   * MySQL python client can be installed with  
 `sudo pip3 install mysql-connector`
 
@@ -42,6 +43,7 @@ $ which python3
   * `DEMO_DB_USERNAME`
   * `DEMO_DB_PASSWORD`
 * Run with  
-$ ./app.py   
+./app.py   
 ` * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)`
+* CTRL+C to shutdown Flask. You can also exit the virtual environment with `deactivate` (shell prompt goes back to normal).
 
