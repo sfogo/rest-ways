@@ -8,7 +8,7 @@
   * `DEMO_DB_URL`
   * `DEMO_DB_USERNAME`
   * `DEMO_DB_PASSWORD`
-  * Optional `DEMO_DB_DRIVER_CLASSNAME` (defaults to MySQL with `com.mysql.jdbc.Driver`)
+  * Optional `DEMO_DB_DRIVER_CLASSNAME` (defaults to MySQL with `com.mysql.jdbc.Driver`). See `pom.xl` for `mysql` artifact.
   * Optional `DEMO_REST_PORT` (defaults to 8080)
 * If you installed the [parent](https://github.com/sfogo/rest-ways), directly run with `mvn exec:java` (otherwise run with `mvn compile exec:java`)
 * Examples with `DEMO_REST_PORT=7272`
