@@ -12,7 +12,7 @@ Different ways to explore [LOINC](https://loinc.org) codes with REST endpoints. 
   * `DEMO_DB_USERNAME`
   * `DEMO_DB_PASSWORD`
   * Default driver class is `com.mysql.jdbc.Driver` but you can set a different one with environment variable `DEMO_DB_DRIVER_CLASSNAME`.
-  * POM files depend on `mysql` / `mysql-connector-java` artifact but you should be able to change to pretty much any database withw appropriate `JDBC` driver.
+  * POM files depend on `mysql` / `mysql-connector-java` artifact but you should be able to change to pretty much any database with appropriate `JDBC` driver.
 * `mvn install`  
 This will do default packaging of all modules. Some modules have specific profiles (see within each).
 
