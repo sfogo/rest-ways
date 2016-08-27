@@ -18,4 +18,4 @@ This will do default packaging of all modules (except [Flask](flask)). Some modu
 
 ## Run
 * See specific instructions within each project.
-* [Flask](flask)) does **not** use `mvn`.
+* [Flask](flask) module does **not** use `mvn`.
