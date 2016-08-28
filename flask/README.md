@@ -46,4 +46,5 @@ First time it complained about not having `pg_config`, which I got with `sudo ap
 `./app.py`   
 ` * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)`
 * CTRL+C to shutdown Flask. You can also exit the virtual environment with `deactivate` (shell prompt goes back to normal).
+* Default port is`5000` but you can set a different value with environment variable `DEMO_REST_PORT`.
 
