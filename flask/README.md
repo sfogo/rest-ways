@@ -42,7 +42,7 @@ First time it complained about not having `pg_config`, which I got with `sudo ap
   * `DEMO_DB_NAME`
   * `DEMO_DB_USERNAME`
   * `DEMO_DB_PASSWORD`
-* Run (_within or without virtual environment depending on how you install Flask and database python libraries_).
+* Run (_within or without virtual environment depending on how you install Flask and database python libraries_).  
 `./app.py`   
 ` * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)`
 * CTRL+C to shutdown Flask. You can exit the virtual environment with `deactivate` (shell prompt goes back to normal).
