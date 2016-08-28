@@ -18,7 +18,7 @@ class LoincException(Exception):
 # =====================
 def getCode(code):
     query = "select * from loinc where loinc_num = '{}'".format(code)
-    item = service.sqlSelectOne(query)
+    item = service.selectOne(query)
     if (item==None):
         raise LoincException(101,404,'Cannot find LOINC code {}'.format(code))
     return item
@@ -36,4 +36,4 @@ def getCodes(q,searchType=None):
     else:
         raise LoincException(103,400,'Invalid search type {}'.format(searchType))
     # Return items
-    return service.sqlSelect(query)
+    return service.select(query)

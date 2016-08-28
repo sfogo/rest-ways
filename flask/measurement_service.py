@@ -20,7 +20,7 @@ class MeasurementException(Exception):
 # =====================
 def getMeasurement(id):
     query = "select * from measurement where id = '{}'".format(id)
-    item = service.sqlSelectOne(query)
+    item = service.selectOne(query)
     if (item==None):
         raise MeasurementException(101,404,'Cannot find measurement {}'.format(id))
     return item
@@ -31,7 +31,7 @@ def getMeasurement(id):
 # =====================
 def getMeasurements(last=10):
     query = "select * from measurement order by captureTimestamp desc limit {}".format(last)
-    return service.sqlSelect(query)
+    return service.select(query)
 
 # =====================
 # Upload Measurement
@@ -80,7 +80,7 @@ def upload(data):
         data['creationtimestamp'],
         data['note'])
 
-    count = service.sqlUpdate(sql)
+    count = service.update(sql)
     if (not(count>0)):
         raise MeasurementException(105,400,sql)
 

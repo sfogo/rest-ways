@@ -2,7 +2,7 @@
 # Explore LOINC measurement and observation codes with Python3 + [Flask](http://flask.pocoo.org)
 ## Before you run
 ### Environment
-* Python3 Environment  
+* My Python3 Environment  
 ```
 $ uname -a 
 Linux dm4 4.4.0-34-generic #53~14.04.1-Ubuntu SMP Wed Jul 27 16:56:40 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
@@ -22,7 +22,8 @@ $ which python3
   * `sudo apt-get install python3-pip`
   * `sudo pip3 install virtualenv`
   * `cd flask` (directory that contains [app.py](app.py) file)
-  * `sudo virtualenv venv` shell prompt gets prefixed with `(venv)`. (note: _you can exit virtual environment with `deactivate`_)
+  * `sudo virtualenv venv`  
+_Note_: this causes shell prompt to be prefixed with `(venv)`. You can later exit virtual environment with `deactivate`.
   * `sudo pip3 install Flask`
 
 ### Database Client

@@ -31,10 +31,33 @@ def getConnection():
         user=dbConfig['username'],
         password=dbConfig['password'])
 
+# ===================================================
+# fix value : My and Postgre do not behave the same :
+# My : null values retrieved as empty string
+# Postgre : null values retrieved as None
+# MySQL types :
+# 246 : numeric value
+# 253 : string
+#   7 : timestamp
+# PostgreSQL types
+# 1700: numeric value
+# 1043: string
+#   25: text
+# 1114: timestamp
+# All this crazy testing to avoid invalid JSON null values
+# TODO : need to find proper solution
+# ===================================================
+def fixValue(colType,value):
+    if (colType==246 or colType==1700):
+        return float(value)
+    if (value is None and (colType==253 or colType==25 or colType==1043)):
+        return ""
+    return value
+
 # =====================
 # SQL Select
 # =====================
-def sqlSelect(query):
+def select(query):
     if (debug): print(query)
     connection = getConnection()
     cursor = connection.cursor()
@@ -47,20 +70,10 @@ def sqlSelect(query):
         for col in range(0,len(metadata)):
             # colName is metadata[col][0]
             # type is metadata[col][1]
-            # MySQL values
-            # 246 : numeric value
-            # 253 : string
-            #   7 : timestamp
-            # PostgreSQL values
-            # 1700: numeric value
-            # All this crazy testing to avoid invalid JSON null values
-            # TODO : need to find proper solution
             colName=metadata[col][0]
             colType=metadata[col][1]
-            if (colType==246 or colType==1700): item[colName] = float(row[col])
-            else: item[colName] = row[col]
-            # item[colName] = row[col]
-            print("{}:{} = {}".format(colType, colName, item[colName]))
+            item[colName] = fixValue(colType,row[col])
+            # print("{}:{} = {}".format(colType, colName, item[colName]))
         items.append(item)
 
     # Closing
@@ -72,7 +85,7 @@ def sqlSelect(query):
 # =====================
 # SQL Update
 # =====================
-def sqlUpdate(sql):
+def update(sql):
     if (debug): print(sql)
     connection = getConnection()
     cursor = connection.cursor()
@@ -88,8 +101,8 @@ def sqlUpdate(sql):
 # =====================
 # SQL Select One
 # =====================
-def sqlSelectOne(query):
-    items = sqlSelect(query)
+def selectOne(query):
+    items = select(query)
     if (len(items)>0):
         return items[0]
     else:
