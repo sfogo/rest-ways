@@ -22,7 +22,7 @@ $ which python3
   * `sudo apt-get install python3-pip`
   * `sudo pip3 install virtualenv`
   * `cd flask` (directory that contains [app.py](app.py) file)
-  * `sudo virtualenv venv` : shell prompt gets prefixed with `(venv)`
+  * `sudo virtualenv venv` shell prompt gets prefixed with `(venv)`. (note: _you can exit virtual environment with `deactivate`_)
   * `sudo pip3 install Flask`
 
 ### Database Client
@@ -42,9 +42,9 @@ First time it complained about not having `pg_config`, which I got with `sudo ap
   * `DEMO_DB_NAME`
   * `DEMO_DB_USERNAME`
   * `DEMO_DB_PASSWORD`
-* Run with  
+* Run (_within or without virtual environment depending on how you install Flask and database python libraries_).
 `./app.py`   
 ` * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)`
-* CTRL+C to shutdown Flask. You can also exit the virtual environment with `deactivate` (shell prompt goes back to normal).
+* CTRL+C to shutdown Flask. You can exit the virtual environment with `deactivate` (shell prompt goes back to normal).
 * Default port is`5000` but you can set a different value with environment variable `DEMO_REST_PORT`.
 
