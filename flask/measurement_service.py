@@ -19,8 +19,7 @@ class MeasurementException(Exception):
 # Get Measurement
 # =====================
 def getMeasurement(id):
-    query = "select * from measurement where id = '{}'".format(id)
-    item = service.selectOne(query)
+    item = service.selectOne("select * from measurement where id = '{}'".format(id))
     if (item==None):
         raise MeasurementException(101,404,'Cannot find measurement {}'.format(id))
     return item
@@ -29,10 +28,10 @@ def getMeasurement(id):
 # Delete Measurement
 # =====================
 def deleteMeasurement(id):
-    # Should not get beforehand
-    getMeasurement(id)
-    service.update("delete from measurement where id = '{}'".format(id))
-    return 1
+    count = service.update("delete from measurement where id = '{}'".format(id))
+    if (count<1):
+        raise MeasurementException(101,404,'Cannot find measurement {}'.format(id))
+    return count
 
 # =====================
 # Get Measurements :

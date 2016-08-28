@@ -23,7 +23,7 @@ else:
 # Get Connection
 # =====================
 def getConnection():
-    print('Connecting to dbConfig %s at %s' % (dbConfig['name'],dbConfig['host']));
+    print('Connecting to %s at %s' % (dbConfig['name'],dbConfig['host']));
     return connector.connect(
         host=dbConfig['host'],
         port=dbConfig['port'],
@@ -90,8 +90,8 @@ def update(sql):
     connection = getConnection()
     cursor = connection.cursor()
     cursor.execute(sql)
-    count = cursor.rowcount
     connection.commit()
+    count = cursor.rowcount
     # Closing
     cursor.close()
     connection.close()
