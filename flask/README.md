@@ -22,7 +22,7 @@ $ which python3
   * `sudo apt-get install python3-pip`
   * `sudo pip3 install virtualenv`
   * `cd flask` (directory that contains [app.py](app.py) file)
-  * `sudo virtualenv venv` : shell promt gets prefixed with `(venv)`
+  * `sudo virtualenv venv` : shell prompt gets prefixed with `(venv)`
   * `sudo pip3 install Flask`
 
 ### Database Client
@@ -43,7 +43,7 @@ First time it complained about not having `pg_config`, which I got with `sudo ap
   * `DEMO_DB_USERNAME`
   * `DEMO_DB_PASSWORD`
 * Run with  
-./app.py   
+`./app.py`   
 ` * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)`
 * CTRL+C to shutdown Flask. You can also exit the virtual environment with `deactivate` (shell prompt goes back to normal).
 

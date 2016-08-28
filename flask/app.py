@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+import os
 import json
 import datetime
 import loinc_service as loinc
@@ -16,6 +17,13 @@ dtEncoder = lambda o: (
      else None)
 
 # =====================
+# Make Response
+# =====================
+def makeResponse(data,status,defEncoder=None):
+    js = json.dumps(data,default=defEncoder)
+    return Response(js, status=status, mimetype='application/json')
+
+# =====================
 # Routes
 # =====================
 @app.route("/")
@@ -29,16 +37,13 @@ def hello():
 def getCode(id):
     try:
         item = loinc.getCode(id)
-        js = json.dumps(item,default=dtEncoder)
-        return Response(js, status=200, mimetype='application/json')
+        return makeResponse(item,200,dtEncoder)
     except loinc.LoincException as e:
         data = {'error':{'code':e.code,'data':e.args}}
-        js = json.dumps(data)
-        return Response(js, status=e.status, mimetype='application/json')
+        return makeResponse(data,e.status)
     except Exception as e:
         data = {'error':{'code':999,'data':e.args}}
-        js = json.dumps(data)
-        return Response(js, status=500, mimetype='application/json')
+        return makeResponse(data,500)
 
 # =====================
 # Get Codes
@@ -47,19 +52,16 @@ def getCode(id):
 def getCodes():
     try:
         items = loinc.getCodes(request.args.get('q'),request.args.get('type'))
-        js = json.dumps(items,default=dtEncoder)
-        return Response(js, status=200, mimetype='application/json')
+        return makeResponse(items,200,dtEncoder)
     except loinc.LoincException as e:
         data = {'error':{'code':e.code,'data':e.args}}
-        js = json.dumps(data)
-        return Response(js, status=e.status, mimetype='application/json')
+        return makeResponse(data,e.status)
     except Exception as e:
         data = {'error':{'code':999,'data':e.args}}
-        js = json.dumps(data)
-        return Response(js, status=500, mimetype='application/json')
+        return makeResponse(data,500)
 
 # =====================
 # Run
 # =====================
 if __name__ == "__main__":
-    app.run()
+    app.run(port=int(os.environ.get('DEMO_REST_PORT', 5000)))
