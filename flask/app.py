@@ -4,6 +4,7 @@ import os
 import json
 import datetime
 import loinc_service as loinc
+import measurement_service as measurements
 from flask import Flask
 from flask import Response
 from flask import request
@@ -61,7 +62,57 @@ def getCodes():
         return makeResponse(data,500)
 
 # =====================
+# Get Measurement
+# =====================
+@app.route("/loinc/measurements/<id>", methods = ['GET'])
+def getMeasurement(id):
+    try:
+        item = measurements.getMeasurement(id)
+        return makeResponse(item,200,dtEncoder)
+    except measurements.MeasurementException as e:
+        data = {'error':{'code':e.code,'data':e.args}}
+        return makeResponse(data,e.status)
+    except Exception as e:
+        data = {'error':{'code':999,'data':e.args}}
+        return makeResponse(data,500)
+
+# =====================
+# Get Measurements
+# =====================
+@app.route("/loinc/measurements", methods = ['GET'])
+def getMeasurements():
+    try:
+        last = request.args.get('last')
+        if (last is None):
+            limit=10
+        else:
+            limit=int(last)
+        items = measurements.getMeasurements(limit)
+        return makeResponse(items,200,dtEncoder)
+    except measurements.MeasurementException as e:
+        data = {'error':{'code':e.code,'data':e.args}}
+        return makeResponse(data,e.status)
+    except Exception as e:
+        data = {'error':{'code':999,'data':e.args}}
+        return makeResponse(data,500)
+
+# =====================
+# POST Measurement
+# =====================
+@app.route("/loinc/measurements", methods = ['POST'])
+def upload():
+    try:
+        item = measurements.upload(request.get_json())
+        return makeResponse(item,200,dtEncoder)
+    except measurements.MeasurementException as e:
+        data = {'error':{'code':e.code,'data':e.args}}
+        return makeResponse(data,e.status)
+    except Exception as e:
+        data = {'error':{'code':999,'data':e.args}}
+        return makeResponse(data,500)
+
+# =====================
 # Run
 # =====================
 if __name__ == "__main__":
-    app.run(port=int(os.environ.get('DEMO_REST_PORT', 5000)))
+    app.run(port=int(os.environ.get('DEMO_REST_PORT', 5000)),threaded=True)

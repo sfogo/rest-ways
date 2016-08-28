@@ -32,7 +32,7 @@ def getCodes(q,searchType=None):
     elif (searchType is None or searchType=='code'):
         query = "select * from loinc where loinc_num like '%{}%'".format(q)
     elif (searchType=='name'):
-        query = "select * from loinc where lower(long_common_name) like '%cannab%'".format(q)
+        query = "select * from loinc where lower(long_common_name) like '%{}%'".format(q)
     else:
         raise LoincException(103,400,'Invalid search type {}'.format(searchType))
     # Return items

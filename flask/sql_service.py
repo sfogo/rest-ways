@@ -47,7 +47,20 @@ def sqlSelect(query):
         for col in range(0,len(metadata)):
             # colName is metadata[col][0]
             # type is metadata[col][1]
-            item[metadata[col][0]] = row[col]
+            # MySQL values
+            # 246 : numeric value
+            # 253 : string
+            #   7 : timestamp
+            # PostgreSQL values
+            # 1700: numeric value
+            # All this crazy testing to avoid invalid JSON null values
+            # TODO : need to find proper solution
+            colName=metadata[col][0]
+            colType=metadata[col][1]
+            if (colType==246 or colType==1700): item[colName] = float(row[col])
+            else: item[colName] = row[col]
+            # item[colName] = row[col]
+            print("{}:{} = {}".format(colType, colName, item[colName]))
         items.append(item)
 
     # Closing
@@ -55,6 +68,22 @@ def sqlSelect(query):
     connection.close()
     # Returned as list of catalogs
     return items
+
+# =====================
+# SQL Update
+# =====================
+def sqlUpdate(sql):
+    if (debug): print(sql)
+    connection = getConnection()
+    cursor = connection.cursor()
+    cursor.execute(sql)
+    count = cursor.rowcount
+    connection.commit()
+    # Closing
+    cursor.close()
+    connection.close()
+    # Return write count
+    return count
 
 # =====================
 # SQL Select One
