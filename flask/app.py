@@ -77,6 +77,21 @@ def getMeasurement(id):
         return makeResponse(data,500)
 
 # =====================
+# Delete Measurement
+# =====================
+@app.route("/loinc/measurements/<id>", methods = ['DELETE'])
+def deleteMeasurement(id):
+    try:
+        count = measurements.deleteMeasurement(id)
+        return makeResponse({'deleted':count},200)
+    except measurements.MeasurementException as e:
+        data = {'error':{'code':e.code,'data':e.args}}
+        return makeResponse(data,e.status)
+    except Exception as e:
+        data = {'error':{'code':999,'data':e.args}}
+        return makeResponse(data,500)
+
+# =====================
 # Get Measurements
 # =====================
 @app.route("/loinc/measurements", methods = ['GET'])

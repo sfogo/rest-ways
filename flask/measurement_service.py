@@ -26,6 +26,15 @@ def getMeasurement(id):
     return item
 
 # =====================
+# Delete Measurement
+# =====================
+def deleteMeasurement(id):
+    # Should not get beforehand
+    getMeasurement(id)
+    service.update("delete from measurement where id = '{}'".format(id))
+    return 1
+
+# =====================
 # Get Measurements :
 # Last 10 by default
 # =====================
