@@ -84,8 +84,9 @@ def select(query):
         # may not even exist at this point and we do not want this cleaning up
         # to raise 'referenced before assignment' (and it would hide connnection errors).
         # We also need 2 separate tries to make sure that both get executed.
-        # We could also define cursor and connection outside top level try
-        # to avoid this extra try/except wrapping.
+        # We could also init cursor and connection (Not value) outside top level try
+        # to avoid this extra try/except wrapping (but we would need to check Not-ness before closing)
+        # Therefore this seems to be the lightest overall.
         try: cursor.close()
         except: True
         try: connection.close()
