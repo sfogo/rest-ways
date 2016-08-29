@@ -17,29 +17,29 @@ $ which python3
 ```
 
 ### Install Flask
-* General install instructions are [here](http://flask.pocoo.org/docs/0.11/installation)
-* You can do a system wide install and not bother about [virtualenv](http://docs.python-guide.org/en/latest/dev/virtualenvs) at all. Here is what I did for virtual env:
+* General install instructions are [here](http://flask.pocoo.org/docs/0.11/installation).
+* You can do a system wide install and not bother about [virtualenv](http://docs.python-guide.org/en/latest/dev/virtualenvs) at all. I did for the following for virtual env:
   * `sudo apt-get install python3-pip`
   * `sudo pip3 install virtualenv`
   * `cd flask` (directory that contains [app.py](app.py) file)
   * `sudo virtualenv venv`  
-_Note_: this causes shell prompt to be prefixed with `(venv)`. You can later exit virtual environment with `deactivate`.
+_Note: this causes the shell prompt to be prefixed with `(venv)`. You can later exit virtual environment with `deactivate`_.
   * `sudo pip3 install Flask`
 
 ### Database Client
-  * Application also needs either `MySQL` or `PostgreSQL` Python client. Like Flax, you can choose to install system wide or within `venv`. You can check whether you already have them with [this](testing/test-mysql.sql) for MySQL or [this](testing/test-pg.py) for PostgresSQL.
-  * PostgreSQL python client can be installed with  
+  * Application also needs either `MySql` or `PostgreSql` Python client. Like Flax, you can choose to install system wide or within `venv`. You can check whether you already have them with [this](testing/test-mysql.sql) for MySql or [this](testing/test-pg.py) for PostgresSql.
+  * PostgreSql python client can be installed with  
 `sudo pip3 install psycopg2`  
 First time it complained about not having `pg_config`, which I got with `sudo apt-get install libpq-dev`, then re-attempt `psycopg2` install.
-  * MySQL python client can be installed with  
+  * MySql python client can be installed with  
 `sudo pip3 install mysql-connector`
 
 ## Run
 * See [parent](https://github.com/sfogo/rest-ways) project for [LOINC](https://loinc.org) database setup.
-* Once you have Flaks and database client, export the following environment variables:
-  * `DEMO_DB_TYPE` Supported values are `mysql` and `postgresql`. It tells SQL Service which SQL connector module to import (`mysql.conector` or `psycopg2`)
+* Once you have Flask and database client, export the following environment variables:
+  * `DEMO_DB_TYPE` Supported values are `mysql` and `postgresql`. It tells [Sql Service](sql_service.py) which Sql connector module to import (`mysql.conector` or `psycopg2`)
   * `DEMO_DB_HOST`
-  * `DEMO_DB_PORT` Usually `3306` for `MySql` and `5432` for `PostgreSQL`
+  * `DEMO_DB_PORT` Usually `3306` for `MySql` and `5432` for `PostgreSql`
   * `DEMO_DB_NAME`
   * `DEMO_DB_USERNAME`
   * `DEMO_DB_PASSWORD`
@@ -48,4 +48,7 @@ First time it complained about not having `pg_config`, which I got with `sudo ap
 ` * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)`
 * CTRL+C to shutdown Flask. You can exit the virtual environment with `deactivate` (shell prompt goes back to normal).
 * Default port is`5000` but you can set a different value with environment variable `DEMO_REST_PORT`.
+* Home page at `http://localhost:5000` explains endpoints.  
+<img src="https://cloud.githubusercontent.com/assets/13286393/18037929/b1e2c116-6d43-11e6-96e6-9d1c58756507.png"
+     border="0" width="80%" />
 
