@@ -86,11 +86,9 @@ def select(query):
         # We also need 2 separate tries to make sure that both get executed.
         # We could also define cursor and connection outside top level try
         # to avoid this extra try/except wrapping.
-        try:
-            if (cursor is not None): cursor.close()
+        try: cursor.close()
         except: True
-        try:
-            if (connection is not None): connection.close()
+        try: connection.close()
         except: True
  
 # =====================
@@ -106,11 +104,9 @@ def update(sql):
         return cursor.rowcount
     except: raise
     finally:
-        try:
-            if (cursor is not None): cursor.close()
+        try: cursor.close()
         except: True
-        try:
-            if (connection is not None): connection.close()
+        try: connection.close()
         except: True
 
 # =====================
