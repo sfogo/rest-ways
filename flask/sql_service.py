@@ -80,11 +80,12 @@ def select(query):
         return items
     except: raise
     finally:
-        # Careful : cursor and connection may not even exist at this point
-        # and we do not want this cleaning up to raise 'referenced before assignment'
-        # (and we would miss connnection errors). We also need 2 different tries to
-        # make that both go get executed.
-        # We could also define them outside first try:
+        # Careful : closing is 'try/except' wrapped because cursor and connection
+        # may not even exist at this point and we do not want this cleaning up
+        # to raise 'referenced before assignment' (and it would hide connnection errors).
+        # We also need 2 separate tries to make sure that both get executed.
+        # We could also define cursor and connection outside top level try
+        # to avoid this extra try/except wrapping.
         try:
             if (cursor is not None): cursor.close()
         except: True
