@@ -32,6 +32,8 @@ def getConnection():
         password=dbConfig['password'])
 
 # ===================================================
+# All this crazy testing to avoid invalid JSON null values
+# TODO : need to find proper solution
 # fix value : My and Postgre do not behave the same :
 # My : null values retrieved as empty string
 # Postgre : null values retrieved as None
@@ -44,8 +46,6 @@ def getConnection():
 # 1043: string
 #   25: text
 # 1114: timestamp
-# All this crazy testing to avoid invalid JSON null values
-# TODO : need to find proper solution
 # ===================================================
 def fixValue(colType,value):
     if (colType==246 or colType==1700):
@@ -66,7 +66,7 @@ def select(query):
         metadata = cursor.description
         items = []
         for row in cursor:
-            # Each row a catalog
+            # Each row item a catalog
             item = {}
             for col in range(0,len(metadata)):
                 # colName is metadata[col][0]
@@ -78,11 +78,19 @@ def select(query):
             items.append(item)
         # Returned as list of catalogs
         return items
-    except:
-        raise
+    except: raise
     finally:
-        if (cursor is not None): cursor.close()
-        if (connection is not None): connection.close()
+        # Careful : cursor and connection may not even exist at this point
+        # and we do not want this cleaning up to raise 'referenced before assignment'
+        # (and we would miss connnection errors). We also need 2 different tries to
+        # make that both go get executed.
+        # We could also define them outside first try:
+        try:
+            if (cursor is not None): cursor.close()
+        except: True
+        try:
+            if (connection is not None): connection.close()
+        except: True
  
 # =====================
 # SQL Update
@@ -95,11 +103,14 @@ def update(sql):
         cursor.execute(sql)
         connection.commit()
         return cursor.rowcount
-    except:
-        raise
+    except: raise
     finally:
-        if (cursor is not None): cursor.close()
-        if (connection is not None): connection.close()
+        try:
+            if (cursor is not None): cursor.close()
+        except: True
+        try:
+            if (connection is not None): connection.close()
+        except: True
 
 # =====================
 # SQL Select One
