@@ -59,44 +59,47 @@ def fixValue(colType,value):
 # =====================
 def select(query):
     if (debug): print(query)
-    connection = getConnection()
-    cursor = connection.cursor()
-    cursor.execute(query)
-    metadata = cursor.description
-    items = []
-    for row in cursor:
-        # Each row a catalog
-        item = {}
-        for col in range(0,len(metadata)):
-            # colName is metadata[col][0]
-            # type is metadata[col][1]
-            colName=metadata[col][0]
-            colType=metadata[col][1]
-            item[colName] = fixValue(colType,row[col])
-            # print("{}:{} = {}".format(colType, colName, item[colName]))
-        items.append(item)
-
-    # Closing
-    cursor.close()
-    connection.close()
-    # Returned as list of catalogs
-    return items
-
+    try:
+        connection = getConnection()
+        cursor = connection.cursor()
+        cursor.execute(query)
+        metadata = cursor.description
+        items = []
+        for row in cursor:
+            # Each row a catalog
+            item = {}
+            for col in range(0,len(metadata)):
+                # colName is metadata[col][0]
+                # type is metadata[col][1]
+                colName=metadata[col][0]
+                colType=metadata[col][1]
+                item[colName] = fixValue(colType,row[col])
+                # print("{}:{} = {}".format(colType, colName, item[colName]))
+            items.append(item)
+        # Returned as list of catalogs
+        return items
+    except:
+        raise
+    finally:
+        if (cursor is not None): cursor.close()
+        if (connection is not None): connection.close()
+ 
 # =====================
 # SQL Update
 # =====================
 def update(sql):
     if (debug): print(sql)
-    connection = getConnection()
-    cursor = connection.cursor()
-    cursor.execute(sql)
-    connection.commit()
-    count = cursor.rowcount
-    # Closing
-    cursor.close()
-    connection.close()
-    # Return write count
-    return count
+    try:
+        connection = getConnection()
+        cursor = connection.cursor()
+        cursor.execute(sql)
+        connection.commit()
+        return cursor.rowcount
+    except:
+        raise
+    finally:
+        if (cursor is not None): cursor.close()
+        if (connection is not None): connection.close()
 
 # =====================
 # SQL Select One
