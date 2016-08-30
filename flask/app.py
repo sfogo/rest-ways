@@ -83,7 +83,7 @@ def getMeasurement(id):
 def deleteMeasurement(id):
     try:
         count = measurements.deleteMeasurement(id)
-        return makeResponse({'deleted':count},200)
+        return makeResponse({},204)
     except measurements.MeasurementException as e:
         data = {'error':{'code':e.code,'data':e.args}}
         return makeResponse(data,e.status)
@@ -118,7 +118,7 @@ def getMeasurements():
 def upload():
     try:
         item = measurements.upload(request.get_json())
-        return makeResponse(item,200,dtEncoder)
+        return makeResponse(item,201,dtEncoder)
     except measurements.MeasurementException as e:
         data = {'error':{'code':e.code,'data':e.args}}
         return makeResponse(data,e.status)
