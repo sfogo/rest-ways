@@ -2,7 +2,8 @@
 ## Overview
 Different ways to explore [LOINC](https://loinc.org) codes with REST endpoints. This project does not provide LOINC data. It can be downloaded from [here](https://loinc.org/downloads) (_as well as database setup scripts_). Project is based on LOINC version **2.50**.
 
-* [Camel CXF REST + XML](camel-cxf)
+* [Camel + CXF RS + XML](camel-cxf)
+* [SpringBoot + CXF RS + JSON / Moxy](springboot-cxf)
 * [Camel Servlet REST + JSON](camel-java-routes)
 * [Jersey + JSON](jersey) (Grizzly or [Webapp Runner](https://github.com/jsimone/webapp-runner) depending on POM profile)
 * [Flask](flask) (Python3 and [Flask](http://flask.pocoo.org))

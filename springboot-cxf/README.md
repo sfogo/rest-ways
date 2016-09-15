@@ -17,3 +17,6 @@
 `curl http://localhost:7272/loinc/codes/12345-5`  
   * Search Codes that contain `1234`  
 `http://localhost:7272/loinc/codes?q=1234`
+
+### CXF
+Default CXF base path is `/services` but [application.yml](src/main/resources/application.yml) changes it to `/`.
