@@ -54,6 +54,4 @@ public class LoincResource {
         final SimpleError error = e.asError();
         return Response.status(e.getCode().getStatus()).header("LOINC-HEADER", e.getMessage()).entity(error).build();
     }
-
-
 }

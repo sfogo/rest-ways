@@ -19,40 +19,56 @@ package com.vnet.camelcxf;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.vnet.resource.LoincResource;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.cxf.common.message.CxfConstants;
+import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import javax.ws.rs.WebApplicationException;
 
 
 public class Routes extends RouteBuilder {
 
     private static final String REST_ENDPOINT_URI = "cxfrs://http://localhost:{{restEndpointPort}}/loinc"
-        + "?resourceClasses=com.vnet.camelcxf.LoincResource";
-    
+        + "?resourceClasses=com.vnet.resource.LoincResource";
+
+    class WebAppExceptionProcessor implements Processor {
+        public void process(Exchange exchange) throws Exception {
+            final WebApplicationException e = exchange.getProperty(Exchange.EXCEPTION_CAUGHT,WebApplicationException.class);
+            exchange.getIn().setBody(new ObjectMapper().writeValueAsString(e.getResponse().getEntity()));
+            exchange.getIn().setHeader(Exchange.HTTP_RESPONSE_CODE,e.getResponse().getStatus());
+        }
+    }
+
     public void configure() {
-        errorHandler(noErrorHandler());
-        from(REST_ENDPOINT_URI).process(new MappingProcessor(new LoincResource()));
+        onException(WebApplicationException.class)
+            .handled(true)
+            .process(new WebAppExceptionProcessor());
+
+        from(REST_ENDPOINT_URI)
+            .process(new MappingProcessor(new LoincResource()))
+            .marshal().json(JsonLibrary.Jackson);
     }
     
     // Mapping the request to object's invocation
     private static class MappingProcessor implements Processor {
-
-        final private Log logger = LogFactory.getLog(Routes.class);
-
-        private Class<?> beanClass;
-        private Object instance;
+        final private Log logger = LogFactory.getLog(getClass());
+        final private Class<?> beanClass;
+        final private Object instance;
         
         public MappingProcessor(Object obj) {
-            beanClass = obj.getClass();
-            instance = obj;
+            this.beanClass = obj.getClass();
+            this.instance = obj;
         }
          
         public void process(Exchange exchange) throws Exception {
             String operationName = exchange.getIn().getHeader(CxfConstants.OPERATION_NAME, String.class);
-            logger.info(operationName);
+            logger.info("operationName="+operationName);
             Method method = findMethod(operationName, exchange.getIn().getBody(Object[].class));
             try {
                 Object response = method.invoke(instance, exchange.getIn().getBody(Object[].class));
@@ -79,5 +95,4 @@ public class Routes extends RouteBuilder {
             return answer;
         }
     }
-
 }
