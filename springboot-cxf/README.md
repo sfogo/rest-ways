@@ -19,5 +19,5 @@
 `http://localhost:7272/loinc/codes?q=1234`
 
 ### CXF
-* CXF documentation explains implementation are [here](http://cxf.apache.org/docs/springboot.html#SpringBoot-SpringBootCXFJAX-RSStarter).
+* CXF documentation explains implementation [here](http://cxf.apache.org/docs/springboot.html#SpringBoot-SpringBootCXFJAX-RSStarter).
 * Default CXF base path is `/services` but [application.yml](src/main/resources/application.yml) changes it to `/`.
