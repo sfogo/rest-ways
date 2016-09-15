@@ -78,7 +78,7 @@ public class Routes extends RouteBuilder {
                 exchange.getOut().setBody(response);
             }  catch (InvocationTargetException e) {
                 logger.error(e.getMessage());
-                throw new Exception(e.getCause());
+                throw (Exception) e.getCause();
             }
         }
 
