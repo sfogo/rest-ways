@@ -18,6 +18,7 @@ package com.vnet.camelcxf;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vnet.resource.LoincResource;
@@ -37,7 +38,7 @@ public class Routes extends RouteBuilder {
     private static final String REST_ENDPOINT_URI = "cxfrs://http://localhost:{{restEndpointPort}}/loinc"
         + "?resourceClasses=com.vnet.resource.LoincResource";
 
-    class WebAppExceptionProcessor implements Processor {
+    private class WebAppExceptionProcessor implements Processor {
         public void process(Exchange exchange) throws Exception {
             final WebApplicationException e = exchange.getProperty(Exchange.EXCEPTION_CAUGHT,WebApplicationException.class);
             exchange.getIn().setBody(new ObjectMapper().writeValueAsString(e.getResponse().getEntity()));
@@ -55,44 +56,43 @@ public class Routes extends RouteBuilder {
             .marshal().json(JsonLibrary.Jackson);
     }
     
-    // Mapping the request to object's invocation
+    /**
+     * Mapping the request to object's invocation
+     */
     private static class MappingProcessor implements Processor {
         final private Log logger = LogFactory.getLog(getClass());
         final private Class<?> beanClass;
         final private Object instance;
         
-        public MappingProcessor(Object obj) {
+        MappingProcessor(Object obj) {
             this.beanClass = obj.getClass();
             this.instance = obj;
         }
          
         public void process(Exchange exchange) throws Exception {
-            String operationName = exchange.getIn().getHeader(CxfConstants.OPERATION_NAME, String.class);
-            logger.info("operationName="+operationName);
-            Method method = findMethod(operationName, exchange.getIn().getBody(Object[].class));
+            final String methodName = exchange.getIn().getHeader(CxfConstants.OPERATION_NAME, String.class);
+            final Object[] parameters = exchange.getIn().getBody(Object[].class);
+            final Method method = getMethod(methodName, parameters);
             try {
-                Object response = method.invoke(instance, exchange.getIn().getBody(Object[].class));
+                Object response = method.invoke(instance, parameters);
                 exchange.getOut().setBody(response);
             }  catch (InvocationTargetException e) {
-                throw (Exception)e.getCause();
+                logger.error(e.getMessage());
+                throw new Exception(e.getCause());
             }
         }
-        
-        private Method findMethod(String operationName, Object[] parameters) throws SecurityException, NoSuchMethodException {            
-            return beanClass.getMethod(operationName, getParameterTypes(parameters));
-        }
-        
-        private Class<?>[] getParameterTypes(Object[] parameters) {
-            if (parameters == null) {
-                return new Class[0];
+
+        private Method getMethod(String methodName, Object[] parameters) throws NoSuchMethodException {
+            logger.info(String.format("Find Method : %s.%s", beanClass.getName(), methodName));
+            if (parameters == null)
+                return beanClass.getMethod(methodName);
+
+            final Class<?>[] parameterTypes = new Class[parameters.length];
+            for (int i = 0; i < parameters.length; i++) {
+                parameterTypes[i] = parameters[i].getClass();
+                logger.info(String.format("With Parameter: %s [%s]",parameterTypes[i].getName(), parameters[i].toString()));
             }
-            Class<?>[] answer = new Class[parameters.length];
-            int i = 0;
-            for (Object object : parameters) {
-                answer[i] = object.getClass();
-                i++;
-            }
-            return answer;
+            return beanClass.getMethod(methodName, parameterTypes);
         }
     }
 }
