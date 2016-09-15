@@ -15,6 +15,12 @@
     <name>Rest Ways Base</name>
 
     <dependencies>
+        <!-- Javax WS REST -->
+        <dependency>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>javax.ws.rs-api</artifactId>
+            <version>2.1-m01</version>
+        </dependency>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>

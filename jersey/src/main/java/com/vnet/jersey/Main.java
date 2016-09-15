@@ -13,7 +13,7 @@ public class Main {
     static private final Log logger = LogFactory.getLog(Main.class);
 
     static URI uri(int port) {
-        return URI.create(String.format("http://localhost:%d/app/", port));
+        return URI.create(String.format("http://localhost:%d/loinc/", port));
     }
 
     static HttpServer createHttpServer(URI uri) {

@@ -33,7 +33,7 @@ public class ResourceTest {
     public void testGet() throws Exception {
         final Client client = ClientBuilder.newClient();
         final WebTarget target = client.target(uri.toString());
-        final String response = target.path("loinc/codes/11113-8").request().get(String.class);
+        final String response = target.path("/codes/11113-8").request().get(String.class);
         final String pattern = "{\"loincNum\":\"11113-8\"";
         assertEquals(response.substring(0,pattern.length()), pattern);
     }
