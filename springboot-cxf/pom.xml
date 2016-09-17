@@ -10,6 +10,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>1.4.0.RELEASE</version>
+        <relativePath/>
     </parent>
     <packaging>war</packaging>
     <name>Spring Boot and CXF</name>
@@ -69,6 +70,12 @@
             <version>2.23.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -81,24 +88,6 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-
-            <!-- mvn compile exec:java -->
-            <!--
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <configuration>
-                    <mainClass>com.vnet.springbootcxf.Application</mainClass>
-                    <includePluginDependencies>false</includePluginDependencies>
-                    <systemProperties>
-                        <property>
-                            <key>java.util.logging.config.file</key>
-                            <value>logging.properties</value>
-                        </property>
-                    </systemProperties>
-                </configuration>
-            </plugin>
-            -->
         </plugins>
     </build>
 
