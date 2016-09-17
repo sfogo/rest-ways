@@ -1,13 +1,15 @@
 package com.vnet.springbootcxf;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.vnet.model.Loinc;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -26,8 +28,16 @@ public class AppTest {
     }
 
     @Test
-    public void testError() {
+    public void testGetCodes() throws Exception {
+        String body = restTemplate.getForObject("/loinc/codes?q=8888", String.class);
+        final Loinc[] codes = new ObjectMapper().readValue(body, Loinc[].class);
+        assertThat(codes.length).isGreaterThan(1);
+        Arrays.stream(codes).map(Loinc::getLoincNum).forEach((s) -> assertThat(s).contains("8888"));
+    }
+
+    @Test
+    public void testGetCodesError() {
         String body = restTemplate.getForObject("/loinc/codes", String.class);
-        assertEquals("{\"code\":102,\"message\":\"Missing query parameter [q]\"}", body);
+        assertThat(body).isEqualTo("{\"code\":102,\"message\":\"Missing query parameter [q]\"}");
     }
 }
